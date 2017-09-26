@@ -11,17 +11,11 @@ HTMLWidgets.widget({
     return {
 
       renderValue: function(x) {
-
-        // TODO: code to render the widget, e.g.
-        el.innerText = x.message;
-
+        $(el).empty() ;
+        $(el).append( $("<asciinema-player src='"+ x.src +"' />") ) ;
       },
 
-      resize: function(width, height) {
-
-        // TODO: code to re-render the widget with a new size
-
-      }
+      resize: function(width, height) {}
 
     };
   }

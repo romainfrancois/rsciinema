@@ -1,17 +1,14 @@
-#' asciinema player widget
-#'
-#' @importFrom createWidget htmlwidgets
-#'
+#' @import htmlwidgets
 #' @export
-asciinemaPlayer <- function(message, width = NULL, height = NULL, elementId = NULL) {
+asciinemaPlayer <- function(src, width = NULL, height = NULL, elementId = NULL) {
 
   # forward options using x
   x = list(
-    message = message
+    src = src
   )
 
   # create widget
-  createWidget(
+  htmlwidgets::createWidget(
     name = 'asciinemaPlayer',
     x,
     width = width,
@@ -37,16 +34,14 @@ asciinemaPlayer <- function(message, width = NULL, height = NULL, elementId = NU
 #'
 #' @name asciinemaPlayer-shiny
 #'
-#' @importFrom htmlwidgets shinyWidgetOutput
 #' @export
 asciinemaPlayerOutput <- function(outputId, width = '100%', height = '400px'){
-  shinyWidgetOutput(outputId, 'asciinemaPlayer', width, height, package = 'rsciinema')
+  htmlwidgets::shinyWidgetOutput(outputId, 'asciinemaPlayer', width, height, package = 'rsciinema')
 }
 
 #' @rdname asciinemaPlayer-shiny
-#' @importFrom htmlwidgets shinyRenderWidget
 #' @export
 renderAsciinemaPlayer <- function(expr, env = parent.frame(), quoted = FALSE) {
   if (!quoted) { expr <- substitute(expr) } # force quoted
-  shinyRenderWidget(expr, asciinemaPlayerOutput, env, quoted = TRUE)
+  htmlwidgets::shinyRenderWidget(expr, asciinemaPlayerOutput, env, quoted = TRUE)
 }

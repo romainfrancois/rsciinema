@@ -1,4 +1,17 @@
 
+#' encode a -n asciicast json file in base64
+#'
+#' @param file asciicast file
+#' @return the file encoded in base64 with content type `application/json`
+#'
+#' @importFrom httpuv rawToBase64
+#' @export
+asciicast_base64 <- function(file){
+  bytes <- file.info(file)$size
+  b64 <- rawToBase64(readBin(file, "raw", n = bytes))
+  paste0("data:application/json;base64,", b64)
+}
+
 #' player for asciicasts
 #'
 #' @param file asciicast json file
@@ -13,14 +26,8 @@
 #' }
 #'
 #' @importFrom htmlwidgets createWidget
-#' @importFrom httpuv rawToBase64
 #' @export
-asciinemaPlayer <- function(file, width = NULL, height = NULL, elementId = NULL) {
-
-  bytes <- file.info(file)$size
-  b64 <- rawToBase64(readBin(file, "raw", n = bytes))
-  src <- paste0("data:application/json;base64,", b64)
-
+asciinemaPlayer <- function(file, src = asciicast_base64(file), width = NULL, height = NULL, elementId = NULL) {
   createWidget(
     name = 'asciinemaPlayer',
     list( src = src ),

@@ -4,7 +4,8 @@
 \alias{asciinemaPlayer}
 \title{player for asciicasts}
 \usage{
-asciinemaPlayer(file, width = NULL, height = NULL, elementId = NULL)
+asciinemaPlayer(file, src = asciicast_base64(file), width = NULL,
+  height = NULL, elementId = NULL)
 }
 \arguments{
 \item{file}{asciicast json file}

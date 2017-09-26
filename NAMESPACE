@@ -3,4 +3,7 @@
 export(asciinemaPlayer)
 export(asciinemaPlayerOutput)
 export(renderAsciinemaPlayer)
-import(htmlwidgets)
+importFrom(htmlwidgets,createWidget)
+importFrom(htmlwidgets,shinyRenderWidget)
+importFrom(htmlwidgets,shinyWidgetOutput)
+importFrom(httpuv,rawToBase64)

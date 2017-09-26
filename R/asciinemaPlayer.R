@@ -1,16 +1,29 @@
-#' @import htmlwidgets
+
+#' player for asciicasts
+#'
+#' @param file asciicast json file
+#'
+#' @param width width
+#' @param height height
+#' @param elementId id
+#'
+#' @examples
+#' \dontrun{
+#'   asciinemaPlayer( system.file("resources", "mapscii.json", package = "rsciinema") )
+#' }
+#'
+#' @importFrom htmlwidgets createWidget
+#' @importFrom httpuv rawToBase64
 #' @export
-asciinemaPlayer <- function(src, width = NULL, height = NULL, elementId = NULL) {
+asciinemaPlayer <- function(file, width = NULL, height = NULL, elementId = NULL) {
 
-  # forward options using x
-  x = list(
-    src = src
-  )
+  bytes <- file.info(file)$size
+  b64 <- rawToBase64(readBin(file, "raw", n = bytes))
+  src <- paste0("data:application/json;base64,", b64)
 
-  # create widget
-  htmlwidgets::createWidget(
+  createWidget(
     name = 'asciinemaPlayer',
-    x,
+    list( src = src ),
     width = width,
     height = height,
     package = 'rsciinema',
@@ -34,14 +47,16 @@ asciinemaPlayer <- function(src, width = NULL, height = NULL, elementId = NULL) 
 #'
 #' @name asciinemaPlayer-shiny
 #'
+#' @importFrom htmlwidgets shinyWidgetOutput
 #' @export
 asciinemaPlayerOutput <- function(outputId, width = '100%', height = '400px'){
-  htmlwidgets::shinyWidgetOutput(outputId, 'asciinemaPlayer', width, height, package = 'rsciinema')
+  shinyWidgetOutput(outputId, 'asciinemaPlayer', width, height, package = 'rsciinema')
 }
 
 #' @rdname asciinemaPlayer-shiny
+#' @importFrom htmlwidgets shinyRenderWidget
 #' @export
 renderAsciinemaPlayer <- function(expr, env = parent.frame(), quoted = FALSE) {
   if (!quoted) { expr <- substitute(expr) } # force quoted
-  htmlwidgets::shinyRenderWidget(expr, asciinemaPlayerOutput, env, quoted = TRUE)
+  shinyRenderWidget(expr, asciinemaPlayerOutput, env, quoted = TRUE)
 }

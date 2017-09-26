@@ -15,6 +15,7 @@ asciicast_base64 <- function(file){
 #' player for asciicasts
 #'
 #' @param file asciicast json file
+#' @param src source asciicast
 #'
 #' @param width width
 #' @param height height

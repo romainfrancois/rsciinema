@@ -10,6 +10,8 @@ asciinemaPlayer(file, src = asciicast_base64(file), width = NULL,
 \arguments{
 \item{file}{asciicast json file}
 
+\item{src}{source asciicast}
+
 \item{width}{width}
 
 \item{height}{height}

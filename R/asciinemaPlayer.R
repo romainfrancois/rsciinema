@@ -28,10 +28,15 @@ asciicast_base64 <- function(file){
 #'
 #' @importFrom htmlwidgets createWidget
 #' @export
-asciinemaPlayer <- function(file, src = asciicast_base64(file), width = NULL, height = NULL, elementId = NULL) {
+asciinemaPlayer <- function(
+  file,
+  cols = 80, rows = 24,
+  src = asciicast_base64(file),
+  width = NULL, height = NULL, elementId = NULL
+) {
   createWidget(
     name = 'asciinemaPlayer',
-    list( src = src ),
+    list( src = src, cols = cols, rows = rows ),
     width = width,
     height = height,
     package = 'rsciinema',

@@ -12,7 +12,11 @@ HTMLWidgets.widget({
 
       renderValue: function(x) {
         $(el).empty() ;
-        $(el).append( $("<asciinema-player src='"+ x.src +"' />") ) ;
+
+        var $player = $("<asciinema-player src='"+ x.src +"' />" ) ;
+        $player.attr("cols", x.cols) ;
+        $player.attr("rows", x.rows) ;
+        $(el).append( $player ) ;
       },
 
       resize: function(width, height) {}

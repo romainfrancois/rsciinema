@@ -1,0 +1,6 @@
+dependencies
+  - name: asciiinema-player
+    version: 2.5.0
+    src: htmlwidgets/lib/asciinema-player-2.5.0
+    script: asciiinema-player.js
+    stylesheet: asciinema-player.css

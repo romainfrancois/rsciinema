@@ -11,4 +11,5 @@ RoxygenNote: 6.0.1.9000
 Imports: httpuv,
     jsonlite,
     tibble,
-    lubridate
+    lubridate,
+    rlang

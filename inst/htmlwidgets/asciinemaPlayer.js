@@ -25,6 +25,8 @@ HTMLWidgets.widget({
         $player.attr("start-at", x.start_at ) ;
         $player.attr("speed", x.speed ) ;
         $player.attr("poster", x.poster) ;
+        $player.attr("font-size", x.font_size) ;
+
         $(el).append( $player ) ;
       },
 

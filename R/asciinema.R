@@ -12,12 +12,12 @@ asciicast_base64 <- function(file){
   paste0("data:application/json;base64,", b64)
 }
 
-#' @import rlang %||%
-get_poster <- function(poster_text = NULL, poster_frame = NULL, secs = 0 ){
+#' @importFrom rlang %||%
+poster <- function(poster_text = NULL, poster_frame = NULL, secs = 0 ){
   if( !is.null(poster_text) ){
     glue("data:text/plain,{poster_text}")
   } else {
-    glue("npt:{seconds}", seconds = poster_frame %||% secs )
+    glue("npt:{seconds}", seconds = if(is.null(poster_frame)) secs else as.numeric(seconds(poster_frame)) )
   }
 }
 
@@ -31,6 +31,9 @@ get_poster <- function(poster_text = NULL, poster_frame = NULL, secs = 0 ){
 #' @param loop if `TRUE` it loops
 #' @param start_at a number of seconds or a `Period` created by e.g. [lubridate::seconds()]
 #' @param speed speed, 2 means twice as fast
+#' @param poster_frame if not `NULL`, used as the
+#' @param poster_text if not `NULL`, used as the text of the poster (preview)
+#' @param font_size size of terminal font. Possible values: small, medium, big, any css `font-size` value (e.g. 15px)
 #'
 #' @param width width
 #' @param height height
@@ -49,12 +52,12 @@ asciinema <- function(
   cols = 80, rows = 24, autoplay = FALSE, loop = FALSE,
   start_at = 0, speed = 1,
   poster_text = NULL, poster_frame = NULL,
+  font_size  = "small",
   src = asciicast_base64(file),
   width = NULL, height = NULL, elementId = NULL
 ) {
 
   secs <- as.numeric(seconds(start_at))
-  poster <- get_poster( poster_text, poster_frame, secs )
 
   createWidget(
     name = 'asciinema',
@@ -63,7 +66,8 @@ asciinema <- function(
       autoplay = autoplay, loop = loop,
       start_at = secs,
       speed = speed,
-      poster = poster
+      poster = poster( poster_text, poster_frame, secs ),
+      font_size = font_size
     ),
     width = width,
     height = height,

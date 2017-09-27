@@ -6,8 +6,8 @@
 \usage{
 asciinema(file, cols = 80, rows = 24, autoplay = FALSE, loop = FALSE,
   start_at = 0, speed = 1, poster_text = NULL, poster_frame = NULL,
-  src = asciicast_base64(file), width = NULL, height = NULL,
-  elementId = NULL)
+  font_size = "small", src = asciicast_base64(file), width = NULL,
+  height = NULL, elementId = NULL)
 }
 \arguments{
 \item{file}{asciicast json file}
@@ -23,6 +23,12 @@ asciinema(file, cols = 80, rows = 24, autoplay = FALSE, loop = FALSE,
 \item{start_at}{a number of seconds or a `Period` created by e.g. [lubridate::seconds()]}
 
 \item{speed}{speed, 2 means twice as fast}
+
+\item{poster_text}{if not `NULL`, used as the text of the poster (preview)}
+
+\item{poster_frame}{if not `NULL`, used as the}
+
+\item{font_size}{size of terminal font. Possible values: small, medium, big, any css `font-size` value (e.g. 15px)}
 
 \item{src}{source asciicast}
 

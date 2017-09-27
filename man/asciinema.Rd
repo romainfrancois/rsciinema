@@ -5,8 +5,9 @@
 \title{player for asciicasts}
 \usage{
 asciinema(file, cols = 80, rows = 24, autoplay = FALSE, loop = FALSE,
-  start_at = 0, speed = 1, poster = NULL, src = asciicast_base64(file),
-  width = NULL, height = NULL, elementId = NULL)
+  start_at = 0, speed = 1, poster_text = NULL, poster_frame = NULL,
+  src = asciicast_base64(file), width = NULL, height = NULL,
+  elementId = NULL)
 }
 \arguments{
 \item{file}{asciicast json file}

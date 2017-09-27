@@ -12,6 +12,15 @@ asciicast_base64 <- function(file){
   paste0("data:application/json;base64,", b64)
 }
 
+#' @import rlang %||%
+get_poster <- function(poster_text = NULL, poster_frame = NULL, secs = 0 ){
+  if( !is.null(poster_text) ){
+    glue("data:text/plain,{poster_text}")
+  } else {
+    glue("npt:{seconds}", seconds = poster_frame %||% secs )
+  }
+}
+
 #' player for asciicasts
 #'
 #' @param file asciicast json file
@@ -38,20 +47,23 @@ asciicast_base64 <- function(file){
 asciinema <- function(
   file,
   cols = 80, rows = 24, autoplay = FALSE, loop = FALSE,
-  start_at = 0, speed = 1, poster = NULL,
+  start_at = 0, speed = 1,
+  poster_text = NULL, poster_frame = NULL,
   src = asciicast_base64(file),
   width = NULL, height = NULL, elementId = NULL
 ) {
 
-  start_at <- as.character(start_at)
+  secs <- as.numeric(seconds(start_at))
+  poster <- get_poster( poster_text, poster_frame, secs )
 
   createWidget(
     name = 'asciinema',
     list(
       src = src, cols = cols, rows = rows,
       autoplay = autoplay, loop = loop,
-      start_at = as.numeric(seconds(start_at)),
-      speed = speed
+      start_at = secs,
+      speed = speed,
+      poster = poster
     ),
     width = width,
     height = height,

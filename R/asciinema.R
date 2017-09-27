@@ -23,7 +23,7 @@ poster <- function(poster_text = NULL, poster_frame = NULL, secs = 0 ){
 
 #' player for asciicasts
 #'
-#' @param file asciicast json file
+#' @param data asciicast tibble
 #' @param src source asciicast
 #' @param cols number of columns of players terminal
 #' @param rows number of rows of players terminal
@@ -54,6 +54,7 @@ poster <- function(poster_text = NULL, poster_frame = NULL, secs = 0 ){
 #' @export
 asciinema <- function(
   file,
+  data = read_asciicast(file),
   cols = 80, rows = 24, autoplay = FALSE, loop = FALSE,
   start_at = 0, speed = 1,
   poster_text = NULL, poster_frame = NULL,
@@ -61,10 +62,16 @@ asciinema <- function(
   theme= c("asciinema", "tango", "solarized-dark", "solarized-light", "monokai"),
   title="", author = "",
   author_url = "", author_img_url = "",
-  src = asciicast_base64(file),
   width = NULL, height = NULL, elementId = NULL
 ) {
 
+  if( missing(file) && !missing(data) ){
+    file <- tempfile(fileext = ".json")
+    on.exit(unlink(file))
+    write_asciicast(data, file)
+  }
+
+  src  <- asciicast_base64(file)
   secs <- as.numeric(seconds(start_at))
 
   createWidget(

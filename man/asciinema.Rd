@@ -4,15 +4,15 @@
 \alias{asciinema}
 \title{player for asciicasts}
 \usage{
-asciinema(file, cols = 80, rows = 24, autoplay = FALSE, loop = FALSE,
-  start_at = 0, speed = 1, poster_text = NULL, poster_frame = NULL,
-  font_size = "small", theme = c("asciinema", "tango", "solarized-dark",
-  "solarized-light", "monokai"), title = "", author = "", author_url = "",
-  author_img_url = "", src = asciicast_base64(file), width = NULL,
-  height = NULL, elementId = NULL)
+asciinema(file, data = read_asciicast(file), cols = 80, rows = 24,
+  autoplay = FALSE, loop = FALSE, start_at = 0, speed = 1,
+  poster_text = NULL, poster_frame = NULL, font_size = "small",
+  theme = c("asciinema", "tango", "solarized-dark", "solarized-light",
+  "monokai"), title = "", author = "", author_url = "",
+  author_img_url = "", width = NULL, height = NULL, elementId = NULL)
 }
 \arguments{
-\item{file}{asciicast json file}
+\item{data}{asciicast tibble}
 
 \item{cols}{number of columns of players terminal}
 
@@ -42,13 +42,13 @@ asciinema(file, cols = 80, rows = 24, autoplay = FALSE, loop = FALSE,
 
 \item{author_img_url}{URL of the author's image, displayed in the titlebar in fullscreen mode.}
 
-\item{src}{source asciicast}
-
 \item{width}{width}
 
 \item{height}{height}
 
 \item{elementId}{id}
+
+\item{src}{source asciicast}
 }
 \description{
 player for asciicasts

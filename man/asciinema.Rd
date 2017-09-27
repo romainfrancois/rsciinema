@@ -12,7 +12,9 @@ asciinema(file, data = read_asciicast(file), cols = 80, rows = 24,
   author_img_url = "", width = NULL, height = NULL, elementId = NULL)
 }
 \arguments{
-\item{data}{asciicast tibble}
+\item{file}{ascii cast json file}
+
+\item{data}{ascii cast tibble}
 
 \item{cols}{number of columns of players terminal}
 
@@ -47,8 +49,6 @@ asciinema(file, data = read_asciicast(file), cols = 80, rows = 24,
 \item{height}{height}
 
 \item{elementId}{id}
-
-\item{src}{source asciicast}
 }
 \description{
 player for asciicasts

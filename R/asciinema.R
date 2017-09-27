@@ -23,8 +23,8 @@ poster <- function(poster_text = NULL, poster_frame = NULL, secs = 0 ){
 
 #' player for asciicasts
 #'
-#' @param data asciicast tibble
-#' @param src source asciicast
+#' @param file ascii cast json file
+#' @param data ascii cast tibble
 #' @param cols number of columns of players terminal
 #' @param rows number of rows of players terminal
 #' @param autoplay if `TRUE` it autoplays

@@ -14,4 +14,8 @@ Imports: httpuv,
     lubridate,
     glue,
     evaluate,
-    crayon
+    crayon,
+    dplyr,
+    htmlwidgets,
+    purrr,
+    stringr

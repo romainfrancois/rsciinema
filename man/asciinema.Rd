@@ -6,7 +6,9 @@
 \usage{
 asciinema(file, cols = 80, rows = 24, autoplay = FALSE, loop = FALSE,
   start_at = 0, speed = 1, poster_text = NULL, poster_frame = NULL,
-  font_size = "small", src = asciicast_base64(file), width = NULL,
+  font_size = "small", theme = c("asciinema", "tango", "solarized-dark",
+  "solarized-light", "monokai"), title = "", author = "", author_url = "",
+  author_img_url = "", src = asciicast_base64(file), width = NULL,
   height = NULL, elementId = NULL)
 }
 \arguments{
@@ -29,6 +31,16 @@ asciinema(file, cols = 80, rows = 24, autoplay = FALSE, loop = FALSE,
 \item{poster_frame}{if not `NULL`, used as the}
 
 \item{font_size}{size of terminal font. Possible values: small, medium, big, any css `font-size` value (e.g. 15px)}
+
+\item{theme}{theme.}
+
+\item{title}{Title of the asciicast, displayed in the titlebar in fullscreen mode}
+
+\item{author}{Author of the asciicast, displayed in the titlebar in fullscreen mode}
+
+\item{author_url}{URL of the author's homepage/profile. Author name (`author` above) is linked to this URL}
+
+\item{author_img_url}{URL of the author's image, displayed in the titlebar in fullscreen mode.}
 
 \item{src}{source asciicast}
 

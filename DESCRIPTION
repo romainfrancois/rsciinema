@@ -12,4 +12,4 @@ Imports: httpuv,
     jsonlite,
     tibble,
     lubridate,
-    rlang
+    glue

@@ -12,7 +12,7 @@ asciicast_base64 <- function(file){
   paste0("data:application/json;base64,", b64)
 }
 
-#' @importFrom rlang %||%
+#' @importFrom glue glue
 poster <- function(poster_text = NULL, poster_frame = NULL, secs = 0 ){
   if( !is.null(poster_text) ){
     glue("data:text/plain,{poster_text}")
@@ -34,6 +34,11 @@ poster <- function(poster_text = NULL, poster_frame = NULL, secs = 0 ){
 #' @param poster_frame if not `NULL`, used as the
 #' @param poster_text if not `NULL`, used as the text of the poster (preview)
 #' @param font_size size of terminal font. Possible values: small, medium, big, any css `font-size` value (e.g. 15px)
+#' @param theme theme.
+#' @param title Title of the asciicast, displayed in the titlebar in fullscreen mode
+#' @param author Author of the asciicast, displayed in the titlebar in fullscreen mode
+#' @param author_url URL of the author's homepage/profile. Author name (`author` above) is linked to this URL
+#' @param author_img_url URL of the author's image, displayed in the titlebar in fullscreen mode.
 #'
 #' @param width width
 #' @param height height
@@ -53,6 +58,9 @@ asciinema <- function(
   start_at = 0, speed = 1,
   poster_text = NULL, poster_frame = NULL,
   font_size  = "small",
+  theme= c("asciinema", "tango", "solarized-dark", "solarized-light", "monokai"),
+  title="", author = "",
+  author_url = "", author_img_url = "",
   src = asciicast_base64(file),
   width = NULL, height = NULL, elementId = NULL
 ) {
@@ -67,7 +75,12 @@ asciinema <- function(
       start_at = secs,
       speed = speed,
       poster = poster( poster_text, poster_frame, secs ),
-      font_size = font_size
+      theme = match.arg(theme),
+      font_size = font_size,
+      title = title,
+      author = author,
+      author_url = author_url,
+      author_img_url = author_img_url
     ),
     width = width,
     height = height,

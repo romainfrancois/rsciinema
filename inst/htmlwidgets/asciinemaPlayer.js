@@ -27,6 +27,11 @@ HTMLWidgets.widget({
         $player.attr("poster", x.poster) ;
         $player.attr("font-size", x.font_size) ;
 
+        if( x.title !== "" ) $player.attr("title", x.title) ;
+        if( x.author !== "" ) $player.attr("author", x.author) ;
+        if( x.author_url !== "" ) $player.attr("author-url", x.author_url) ;
+        if( x.author_img_url !== "" ) $player.attr("author-img-url", x.author_img_url) ;
+
         $(el).append( $player ) ;
       },
 

@@ -21,6 +21,7 @@ asciicast_base64 <- function(file){
 #' @param autoplay if `TRUE` it autoplays
 #' @param loop if `TRUE` it loops
 #' @param start_at a number of seconds or a `Period` created by e.g. [lubridate::seconds()]
+#' @param speed speed, 2 means twice as fast
 #'
 #' @param width width
 #' @param height height
@@ -37,7 +38,7 @@ asciicast_base64 <- function(file){
 asciinemaPlayer <- function(
   file,
   cols = 80, rows = 24, autoplay = FALSE, loop = FALSE,
-  start_at = 0,
+  start_at = 0, speed = 1,
   src = asciicast_base64(file),
   width = NULL, height = NULL, elementId = NULL
 ) {
@@ -49,7 +50,8 @@ asciinemaPlayer <- function(
     list(
       src = src, cols = cols, rows = rows,
       autoplay = autoplay, loop = loop,
-      start_at = as.numeric(seconds(start_at))
+      start_at = as.numeric(seconds(start_at)),
+      speed = speed
     ),
     width = width,
     height = height,

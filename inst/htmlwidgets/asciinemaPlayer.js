@@ -23,6 +23,7 @@ HTMLWidgets.widget({
           $player.attr("loop", true) ;
         }
         $player.attr("start-at", x.start_at ) ;
+        $player.attr("speed", x.speed ) ;
         $(el).append( $player ) ;
       },
 

@@ -5,7 +5,7 @@
 \title{player for asciicasts}
 \usage{
 asciinemaPlayer(file, cols = 80, rows = 24, autoplay = FALSE,
-  loop = FALSE, start_at = 0, src = asciicast_base64(file),
+  loop = FALSE, start_at = 0, speed = 1, src = asciicast_base64(file),
   width = NULL, height = NULL, elementId = NULL)
 }
 \arguments{
@@ -20,6 +20,8 @@ asciinemaPlayer(file, cols = 80, rows = 24, autoplay = FALSE,
 \item{loop}{if `TRUE` it loops}
 
 \item{start_at}{a number of seconds or a `Period` created by e.g. [lubridate::seconds()]}
+
+\item{speed}{speed, 2 means twice as fast}
 
 \item{src}{source asciicast}
 

@@ -16,6 +16,11 @@ asciicast_base64 <- function(file){
 #'
 #' @param file asciicast json file
 #' @param src source asciicast
+#' @param cols number of columns of players terminal
+#' @param rows number of rows of players terminal
+#' @param autoplay if `TRUE` it autoplays
+#' @param loop if `TRUE` it loops
+#' @param start_at a number of seconds or a `Period` created by e.g. [lubridate::seconds()]
 #'
 #' @param width width
 #' @param height height
@@ -26,17 +31,26 @@ asciicast_base64 <- function(file){
 #'   asciinemaPlayer( system.file("resources", "mapscii.json", package = "rsciinema") )
 #' }
 #'
+#' @importFrom lubridate seconds
 #' @importFrom htmlwidgets createWidget
 #' @export
 asciinemaPlayer <- function(
   file,
-  cols = 80, rows = 24,
+  cols = 80, rows = 24, autoplay = FALSE, loop = FALSE,
+  start_at = 0,
   src = asciicast_base64(file),
   width = NULL, height = NULL, elementId = NULL
 ) {
+
+  start_at <- as.character(start_at)
+
   createWidget(
     name = 'asciinemaPlayer',
-    list( src = src, cols = cols, rows = rows ),
+    list(
+      src = src, cols = cols, rows = rows,
+      autoplay = autoplay, loop = loop,
+      start_at = as.numeric(seconds(start_at))
+    ),
     width = width,
     height = height,
     package = 'rsciinema',

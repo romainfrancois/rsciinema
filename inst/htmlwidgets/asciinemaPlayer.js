@@ -16,6 +16,13 @@ HTMLWidgets.widget({
         var $player = $("<asciinema-player src='"+ x.src +"' />" ) ;
         $player.attr("cols", x.cols) ;
         $player.attr("rows", x.rows) ;
+        if( x.autoplay ){
+          $player.attr("autoplay", true) ;
+        }
+        if( x.loop ){
+          $player.attr("loop", true) ;
+        }
+        $player.attr("start-at", x.start_at ) ;
         $(el).append( $player ) ;
       },
 

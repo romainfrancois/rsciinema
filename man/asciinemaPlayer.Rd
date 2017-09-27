@@ -4,11 +4,22 @@
 \alias{asciinemaPlayer}
 \title{player for asciicasts}
 \usage{
-asciinemaPlayer(file, cols = 80, rows = 24, src = asciicast_base64(file),
+asciinemaPlayer(file, cols = 80, rows = 24, autoplay = FALSE,
+  loop = FALSE, start_at = 0, src = asciicast_base64(file),
   width = NULL, height = NULL, elementId = NULL)
 }
 \arguments{
 \item{file}{asciicast json file}
+
+\item{cols}{number of columns of players terminal}
+
+\item{rows}{number of rows of players terminal}
+
+\item{autoplay}{if `TRUE` it autoplays}
+
+\item{loop}{if `TRUE` it loops}
+
+\item{start_at}{a number of seconds or a `Period` created by e.g. [lubridate::seconds()]}
 
 \item{src}{source asciicast}
 

@@ -20,7 +20,7 @@ read_asciicast <- function(file){
     text = map_chr(json$stdout, 2)
   )
   structure(data,
-    class = c("tbl_asciicast", class(data)),
+    class = c("asciicast", class(data)),
     version = pluck(json, "version"),
     width   = pluck(json, "width"),
     height  = pluck(json, "height"),
@@ -31,7 +31,9 @@ read_asciicast <- function(file){
   )
 }
 
+#' @importFrom crayon silver
 #' @export
-print.tbl_asciicast <- function(...){
+print.asciicast <- function(x, ...){
+  cat( silver( glue( "<ascii cast duration={duration}>", duration = round(attr(x, "duration"),2) )), "\n" )
   NextMethod()
 }

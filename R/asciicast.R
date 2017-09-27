@@ -1,3 +1,4 @@
+#' @importFrom stats runif
 rtime <- function(n, speed){
   runif(n, min = speed*0.5, max = speed*1.5)
 }
@@ -12,7 +13,8 @@ asciibble.default <- function(x, speed, width){
   tibble( time = numeric(), text=character())
 }
 
-
+#' @importFrom stringr str_replace_all
+#' @importFrom magrittr %>%
 #' @importFrom crayon make_style
 #' @export
 asciibble.character <- function(x, speed, width){
@@ -21,7 +23,7 @@ asciibble.character <- function(x, speed, width){
     str_replace_all( "^", "## ") %>%
     paste( collapse = "\r\n")
 
-  discreet <-  make_style( grey(.3) )
+  discreet <-  make_style( "#444444" )
   tibble( time = rtime(1,speed), text = discreet(paste0( "\r\n", text)) )
 }
 

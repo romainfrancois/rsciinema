@@ -1,6 +1,6 @@
 HTMLWidgets.widget({
 
-  name: 'asciinemaPlayer',
+  name: 'asciinema',
 
   type: 'output',
 

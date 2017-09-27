@@ -29,16 +29,16 @@ asciicast_base64 <- function(file){
 #'
 #' @examples
 #' \dontrun{
-#'   asciinemaPlayer( system.file("resources", "mapscii.json", package = "rsciinema") )
+#'   asciinema( system.file("resources", "mapscii.json", package = "rsciinema") )
 #' }
 #'
 #' @importFrom lubridate seconds
 #' @importFrom htmlwidgets createWidget
 #' @export
-asciinemaPlayer <- function(
+asciinema <- function(
   file,
   cols = 80, rows = 24, autoplay = FALSE, loop = FALSE,
-  start_at = 0, speed = 1,
+  start_at = 0, speed = 1, poster = NULL,
   src = asciicast_base64(file),
   width = NULL, height = NULL, elementId = NULL
 ) {
@@ -46,7 +46,7 @@ asciinemaPlayer <- function(
   start_at <- as.character(start_at)
 
   createWidget(
-    name = 'asciinemaPlayer',
+    name = 'asciinema',
     list(
       src = src, cols = cols, rows = rows,
       autoplay = autoplay, loop = loop,
@@ -60,32 +60,32 @@ asciinemaPlayer <- function(
   )
 }
 
-#' Shiny bindings for asciinemaPlayer
+#' Shiny bindings for asciinema
 #'
-#' Output and render functions for using asciinemaPlayer within Shiny
+#' Output and render functions for using asciinema within Shiny
 #' applications and interactive Rmd documents.
 #'
 #' @param outputId output variable to read from
 #' @param width,height Must be a valid CSS unit (like \code{'100\%'},
 #'   \code{'400px'}, \code{'auto'}) or a number, which will be coerced to a
 #'   string and have \code{'px'} appended.
-#' @param expr An expression that generates a asciinemaPlayer
+#' @param expr An expression that generates a asciinema
 #' @param env The environment in which to evaluate \code{expr}.
 #' @param quoted Is \code{expr} a quoted expression (with \code{quote()})? This
 #'   is useful if you want to save an expression in a variable.
 #'
-#' @name asciinemaPlayer-shiny
+#' @name asciinema-shiny
 #'
 #' @importFrom htmlwidgets shinyWidgetOutput
 #' @export
-asciinemaPlayerOutput <- function(outputId, width = '100%', height = '400px'){
-  shinyWidgetOutput(outputId, 'asciinemaPlayer', width, height, package = 'rsciinema')
+asciinemaOutput <- function(outputId, width = '100%', height = '400px'){
+  shinyWidgetOutput(outputId, 'asciinema', width, height, package = 'rsciinema')
 }
 
-#' @rdname asciinemaPlayer-shiny
+#' @rdname asciinema-shiny
 #' @importFrom htmlwidgets shinyRenderWidget
 #' @export
-renderAsciinemaPlayer <- function(expr, env = parent.frame(), quoted = FALSE) {
+renderAsciinema <- function(expr, env = parent.frame(), quoted = FALSE) {
   if (!quoted) { expr <- substitute(expr) } # force quoted
-  shinyRenderWidget(expr, asciinemaPlayerOutput, env, quoted = TRUE)
+  shinyRenderWidget(expr, asciinemaOutput, env, quoted = TRUE)
 }

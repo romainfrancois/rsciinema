@@ -2,10 +2,10 @@
 
 S3method(print,tbl_asciicast)
 export(asciicast_base64)
-export(asciinemaPlayer)
-export(asciinemaPlayerOutput)
+export(asciinema)
+export(asciinemaOutput)
 export(read_asciicast)
-export(renderAsciinemaPlayer)
+export(renderAsciinema)
 importFrom(htmlwidgets,createWidget)
 importFrom(htmlwidgets,shinyRenderWidget)
 importFrom(htmlwidgets,shinyWidgetOutput)

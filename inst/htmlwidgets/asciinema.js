@@ -6,14 +6,14 @@ HTMLWidgets.widget({
 
   factory: function(el, width, height) {
 
-    // TODO: define shared variables for this instance
+    var $player ;
 
     return {
 
       renderValue: function(x) {
         $(el).empty() ;
 
-        var $player = $("<asciinema-player src='"+ x.src +"' />" ) ;
+        $player = $("<asciinema-player src='"+ x.src +"' />" ) ;
         $player.attr("cols", x.cols) ;
         $player.attr("rows", x.rows) ;
         if( x.autoplay ){
@@ -33,6 +33,7 @@ HTMLWidgets.widget({
         if( x.author_img_url !== "" ) $player.attr("author-img-url", x.author_img_url) ;
 
         $(el).append( $player ) ;
+
       },
 
       resize: function(width, height) {}

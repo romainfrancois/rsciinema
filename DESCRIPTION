@@ -21,4 +21,5 @@ Imports: httpuv,
     stringr,
     magrittr,
     utils,
-    stats
+    stats,
+    rlang

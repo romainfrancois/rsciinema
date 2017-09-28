@@ -24,7 +24,7 @@ asciibble.character <- function(x, speed, width){
     paste( collapse = "\r\n")
 
   discreet <-  make_style( "#444444" )
-  tibble( time = rtime(1,speed), text = discreet(paste0( "\r\n", text)) )
+  tibble( time = rtime(1,speed), text = discreet(paste0( "\r\n", text, "\r\n")) )
 }
 
 #' @importFrom crayon red bold magenta
@@ -68,6 +68,7 @@ asciibble.source <- function(x, speed, width){
 #' @param width terminal output width
 #' @param height terminal output height
 #' @param title title of the ascii cast
+#' @param data data
 #'
 #' @examples
 #' \dontrun{
@@ -85,12 +86,10 @@ asciicast <- function(
   version = 1,
   width = 80,
   height = 24,
-  title = ""
+  title = "",
+
+  data = map_df( evaluate(input, envir=envir ), asciibble, speed = speed, width = width )
 ){
-
-  x <- evaluate(input, envir=envir )
-
-  data <- map_df( x, asciibble, speed = speed, width = width )
 
   structure(
     data,

@@ -12,6 +12,10 @@
 #' @param author Author of the asciicast, displayed in the titlebar in fullscreen mode
 #' @param author_url URL of the author's homepage/profile. Author name (`author` above) is linked to this URL
 #' @param author_img_url URL of the author's image, displayed in the titlebar in fullscreen mode.
+#' @param start_at ...
+#' @param title ...
+#' @param poster_text ...
+#' @param poster_frame
 #'
 #' @param ... passed to the base format
 #'
@@ -27,6 +31,10 @@ asciinema_document <- function(
   author = "",
   author_url = "",
   author_img_url = "",
+  start_at = 0,
+  title = "",
+  poster_text = "",
+  poster_frame = "",
   ...){
   fmt <- format(...)
 
@@ -51,21 +59,10 @@ asciinema_document <- function(
     author         <- opt(author)
     author_url     <- opt(author_url)
     author_img_url <- opt(author_img_url)
-
-    # other options just control the widget
-    form <- formals(asciinema)
-    opt_asciinema <- function(name){
-      opts <- options$asciicast
-      if( !is.list(opts) || !name %in% names(opts) ){
-        form[[name]] %||% ""
-      } else {
-        opts[[name]]
-      }
-    }
-    start_at       <- opt_asciinema("start_at")
-    title          <- opt_asciinema("title")
-    poster_text    <- opt_asciinema("poster_text")
-    poster_frame   <- opt_asciinema("poster_frame")
+    start_at <- opt(start_at)
+    title <- op(title)
+    poster_text <- opt(poster_text)
+    poster_frame <- opt(poster_frame)
 
     # replace the code by a call to asciinema and hide it
     options$echo <- FALSE

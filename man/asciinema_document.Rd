@@ -7,7 +7,8 @@
 asciinema_document(format = rmarkdown::html_document, cols = 80,
   rows = 24, speed = 0.1, autoplay = FALSE, loop = FALSE,
   theme = "asciinema", font_size = "small", author = "",
-  author_url = "", author_img_url = "", ...)
+  author_url = "", author_img_url = "", start_at = 0, title = "",
+  poster_text = "", poster_frame = "", ...)
 }
 \arguments{
 \item{format}{base format, e.g. [rmarkdown::html_document()]}
@@ -31,6 +32,14 @@ asciinema_document(format = rmarkdown::html_document, cols = 80,
 \item{author_url}{URL of the author's homepage/profile. Author name (`author` above) is linked to this URL}
 
 \item{author_img_url}{URL of the author's image, displayed in the titlebar in fullscreen mode.}
+
+\item{start_at}{...}
+
+\item{title}{...}
+
+\item{poster_text}{...}
+
+\item{poster_frame}{}
 
 \item{...}{passed to the base format}
 }

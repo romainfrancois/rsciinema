@@ -13,6 +13,6 @@ recommended <- packages %>%
   filter(Priority == "recommended") %>%
   pull(Package)
 
-use_data(base, recommended, packages, internal = TRUE, overwrite = TRUE)
+use_data(base, recommended, tidyverse, internal = TRUE, overwrite = TRUE)
 
 

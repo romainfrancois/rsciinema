@@ -48,15 +48,34 @@ asciibble.error <- function(x, speed, width){
   tibble( time = rtime(1,speed), text = x )
 }
 
-#' @importFrom purrr pluck
+#' @importFrom purrr pluck flatten_chr map2
 #' @importFrom stringr str_split str_replace
 #' @importFrom tibble tibble
 #' @export
 asciibble.source <- function(x, speed, width){
-  str_split(x, "") %>%
-    pluck(1) %>%
-    str_replace( "\n", "\r\n") %>%
-    tibble( time = rtime(length(.),speed), text = . )
+  data  <- highlight_data(x)
+  chars <- .Call(split_chars,
+    min(data$line1), max(data$line2) ,
+    data$line1, data$col1,
+    data$line2, data$col2,
+    data$text, data$class
+  )
+  data <- tibble( text = chars[[1]], class=chars[[2]] ) %>%
+    filter( text != "" )
+
+  tokens <- flatten_chr(map2(data$text, data$class, ~{
+    if( .y == "SPACE" ){
+      str_replace( .x, "\n", "\r\n")
+    } else {
+      txt <- str_split(.x, "")[[1]]
+      if( .y == "functioncall" ){
+        crayon::red(txt)
+      } else {
+        txt
+      }
+    }
+  }))
+  tibble( time = rtime(length(tokens),speed), text = tokens )
 }
 
 #' Simulate evaluation of code

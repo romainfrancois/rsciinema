@@ -2,4 +2,17 @@ library(tidyverse)
 library(devtools)
 
 tidyverse <- tidyverse_packages()
-use_data(tidyverse, internal = TRUE)
+
+packages <- as_tibble(installed.packages())
+
+base <- packages %>%
+  filter(Priority == "base") %>%
+  pull(Package)
+
+recommended <- packages %>%
+  filter(Priority == "recommended") %>%
+  pull(Package)
+
+use_data(base, recommended, packages, internal = TRUE, overwrite = TRUE)
+
+

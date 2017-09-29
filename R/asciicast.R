@@ -68,7 +68,6 @@ asciibble.source <- function(x, speed, width){
 #' @param width terminal output width
 #' @param height terminal output height
 #' @param title title of the ascii cast
-#' @param data data
 #'
 #' @examples
 #' \dontrun{
@@ -86,11 +85,13 @@ asciicast <- function(
   version = 1,
   width = 80,
   height = 24,
-  title = "",
+  title = ""
 
-  data = map_df( evaluate(input, envir=envir ), asciibble, speed = speed, width = width )
 ){
 
+  data <- map_df( evaluate(input, envir=envir ), asciibble,
+    speed = speed, width = width
+  )
   structure(
     data,
     class = c("asciicast", class(data)),

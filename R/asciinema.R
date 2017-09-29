@@ -14,10 +14,10 @@ asciicast_base64 <- function(file){
 
 #' @importFrom glue glue
 poster <- function(poster_text = NULL, poster_frame = NULL, secs = 0 ){
-  if( !is.null(poster_text) ){
+  if( !identical(poster_text, "" ) ){
     glue("data:text/plain,{poster_text}")
   } else {
-    glue("npt:{seconds}", seconds = if(is.null(poster_frame)) secs else as.numeric(seconds(poster_frame)) )
+    glue("npt:{seconds}", seconds = if(identical(poster_frame, "")) secs else as.numeric(seconds(poster_frame)) )
   }
 }
 
@@ -57,9 +57,9 @@ asciinema <- function(
   data = read_asciicast(file),
   cols = 80, rows = 24, autoplay = FALSE, loop = FALSE,
   start_at = 0, speed = 1,
-  poster_text = NULL, poster_frame = NULL,
+  poster_text = "", poster_frame = "",
   font_size  = "small",
-  theme= c("asciinema", "tango", "solarized-dark", "solarized-light", "monokai"),
+  theme = "asciinema",
   title="", author = "",
   author_url = "", author_img_url = "",
   width = NULL, height = NULL, elementId = NULL
@@ -82,7 +82,7 @@ asciinema <- function(
       start_at = secs,
       speed = speed,
       poster = poster( poster_text, poster_frame, secs ),
-      theme = match.arg(theme),
+      theme = theme,
       font_size = font_size,
       title = title,
       author = author,

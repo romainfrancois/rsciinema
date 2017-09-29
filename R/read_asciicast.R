@@ -34,6 +34,8 @@ read_asciicast <- function(file){
 #' @importFrom crayon silver
 #' @export
 print.asciicast <- function(x, ...){
-  cat( silver( glue( "<ascii cast duration={duration}>", duration = round(attr(x, "duration"),2) )), "\n" )
+  cat( silver( glue(
+    "<ascii cast duration={duration}>",duration = round(attr(x, "duration"), 2)
+  )), "\n" )
   NextMethod()
 }

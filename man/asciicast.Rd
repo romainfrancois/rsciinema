@@ -5,8 +5,7 @@
 \title{Simulate evaluation of code}
 \usage{
 asciicast(input, envir = parent.frame(), speed = 0.1, version = 1,
-  width = 80, height = 24, title = "", data = map_df(evaluate(input,
-  envir = envir), asciibble, speed = speed, width = width))
+  width = 80, height = 24, title = "")
 }
 \arguments{
 \item{input}{see [evaluate::evaluate()]}
@@ -22,8 +21,6 @@ asciicast(input, envir = parent.frame(), speed = 0.1, version = 1,
 \item{height}{terminal output height}
 
 \item{title}{title of the ascii cast}
-
-\item{data}{data}
 }
 \description{
 Simulate evaluation of code

@@ -60,7 +60,7 @@ asciinema_document <- function(
     author_url     <- opt(author_url)
     author_img_url <- opt(author_img_url)
     start_at <- opt(start_at)
-    title <- op(title)
+    title <- opt(title)
     poster_text <- opt(poster_text)
     poster_frame <- opt(poster_frame)
 

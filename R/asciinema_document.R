@@ -54,14 +54,11 @@ asciinema_document <- function(format = rmarkdown::html_document, width = 80, he
     options$echo <- FALSE
     options$results <- "markup"
 
-    tf <- tempfile()
-    writeLines(options$code, tf)
-
     options$code <- glue(
       '
        rsciinema::asciinema( data =
           rsciinema::asciicast(
-            file("{tf}", open = "r"),
+            "{code}",
             width = {width}, height = {height}, speed = {speed}, title = "{title}"
           ),
          cols = {width}, rows = {height}, autoplay = {autoplay},
@@ -72,9 +69,8 @@ asciinema_document <- function(format = rmarkdown::html_document, width = 80, he
          poster_text = "{poster_text}",
          poster_frame = "{poster_frame}"
       )
-      '
+      ', code = str_replace_all(paste(options$code, collapse = "\n" ), '"', '\\\\"' )
     )
-    writeLines( options$code)
 
     options
   }

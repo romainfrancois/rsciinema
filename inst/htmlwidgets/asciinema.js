@@ -26,6 +26,7 @@ HTMLWidgets.widget({
         $player.attr("speed", x.speed ) ;
         $player.attr("poster", x.poster) ;
         $player.attr("font-size", x.font_size) ;
+        $player.attr("theme", x.theme) ;
 
         if( x.title !== "" ) $player.attr("title", x.title) ;
         if( x.author !== "" ) $player.attr("author", x.author) ;

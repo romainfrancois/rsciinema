@@ -9,6 +9,9 @@
 #' @param loop if TRUE the player loops
 #' @param theme theme. One of asciinema, tango, solarized-dark, solarized-light or tango
 #' @param font_size font size. One of small, medium, big or any CSS that is valid for a `font-size`
+#' @param author Author of the asciicast, displayed in the titlebar in fullscreen mode
+#' @param author_url URL of the author's homepage/profile. Author name (`author` above) is linked to this URL
+#' @param author_img_url URL of the author's image, displayed in the titlebar in fullscreen mode.
 #'
 #' @param ... passed to the base format
 #'
@@ -21,6 +24,9 @@ asciinema_document <- function(
   autoplay = FALSE, loop = FALSE,
   theme = "asciinema",
   font_size = "small",
+  author = "",
+  author_url = "",
+  author_img_url = "",
   ...){
   fmt <- format(...)
 
@@ -42,6 +48,9 @@ asciinema_document <- function(
     loop           <- opt(loop)
     theme <- opt(theme)
     font_size      <- opt(font_size)
+    author         <- opt(author)
+    author_url     <- opt(author_url)
+    author_img_url <- opt(author_img_url)
 
     # other options just control the widget
     form <- formals(asciinema)
@@ -55,9 +64,6 @@ asciinema_document <- function(
     }
     start_at       <- opt_asciinema("start_at")
     title          <- opt_asciinema("title")
-    author         <- opt_asciinema("author")
-    author_url     <- opt_asciinema("author_url")
-    author_img_url <- opt_asciinema("author_img_url")
     poster_text    <- opt_asciinema("poster_text")
     poster_frame   <- opt_asciinema("poster_frame")
 

@@ -6,7 +6,8 @@
 \usage{
 asciinema_document(format = rmarkdown::html_document, cols = 80,
   rows = 24, speed = 0.1, autoplay = FALSE, loop = FALSE,
-  theme = "asciinema", font_size = "small", ...)
+  theme = "asciinema", font_size = "small", author = "",
+  author_url = "", author_img_url = "", ...)
 }
 \arguments{
 \item{format}{base format, e.g. [rmarkdown::html_document()]}
@@ -24,6 +25,12 @@ asciinema_document(format = rmarkdown::html_document, cols = 80,
 \item{theme}{theme. One of asciinema, tango, solarized-dark, solarized-light or tango}
 
 \item{font_size}{font size. One of small, medium, big or any CSS that is valid for a `font-size`}
+
+\item{author}{Author of the asciicast, displayed in the titlebar in fullscreen mode}
+
+\item{author_url}{URL of the author's homepage/profile. Author name (`author` above) is linked to this URL}
+
+\item{author_img_url}{URL of the author's image, displayed in the titlebar in fullscreen mode.}
 
 \item{...}{passed to the base format}
 }

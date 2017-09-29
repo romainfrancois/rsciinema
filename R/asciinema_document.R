@@ -2,15 +2,26 @@
 #' Format adapter to embed asciicast into html documents
 #'
 #' @param format base format, e.g. [rmarkdown::html_document()]
-#' @param width Number of columns of player's terminal
-#' @param height Number of lines of player's terminal
+#' @param cols Number of columns of player's terminal
+#' @param rows Number of lines of player's terminal
 #' @param speed Typing speed in seconds. The average number of seconds it takes to type one character
+#' @param autoplay if TRUE the player will start automatically
+#' @param loop if TRUE the player loops
+#' @param theme theme. One of asciinema, tango, solarized-dark, solarized-light or tango
+#' @param font_size font size. One of small, medium, big or any CSS that is valid for a `font-size`
+#'
 #' @param ... passed to the base format
 #'
 #' @importFrom glue glue
 #' @importFrom rlang %||% quo_text enquo
 #' @export
-asciinema_document <- function(format = rmarkdown::html_document, width = 80, height = 24, speed = .1, ...){
+asciinema_document <- function(
+  format = rmarkdown::html_document,
+  cols = 80, rows = 24, speed = .1,
+  autoplay = FALSE, loop = FALSE,
+  theme = "asciinema",
+  font_size = "small",
+  ...){
   fmt <- format(...)
 
   asciicast_hook <- function(options){
@@ -23,10 +34,14 @@ asciinema_document <- function(format = rmarkdown::html_document, width = 80, he
     # prefer the values from the chunk options
     # these options are used to simulate the typing,
     # i.e. by the asciicast function
-    width  <- opt(width)
-    height <- opt(height)
+    cols  <- opt(cols)
+    rows <- opt(rows)
     speed  <- opt(speed)
     title  <- opt(title)
+    autoplay       <- opt(autoplay)
+    loop           <- opt(loop)
+    theme <- opt(theme)
+    font_size      <- opt(font_size)
 
     # other options just control the widget
     form <- formals(asciinema)
@@ -38,11 +53,7 @@ asciinema_document <- function(format = rmarkdown::html_document, width = 80, he
         opts[[name]]
       }
     }
-    autoplay       <- opt_asciinema("autoplay")
     start_at       <- opt_asciinema("start_at")
-    loop           <- opt_asciinema("loop")
-    font_size      <- opt_asciinema("font_size")
-    theme          <- opt_asciinema("theme")
     title          <- opt_asciinema("title")
     author         <- opt_asciinema("author")
     author_url     <- opt_asciinema("author_url")
@@ -59,9 +70,9 @@ asciinema_document <- function(format = rmarkdown::html_document, width = 80, he
        rsciinema::asciinema( data =
           rsciinema::asciicast(
             "{code}",
-            width = {width}, height = {height}, speed = {speed}, title = "{title}"
+            rows = {rows}, cols = {rows}, speed = {speed}, title = "{title}"
           ),
-         cols = {width}, rows = {height}, autoplay = {autoplay},
+         cols = {cols}, rows = {rows}, autoplay = {autoplay},
          start_at = {start_at}, loop = {loop}, font_size = "{font_size}",
          theme = "{theme}", title = "{title}", author = "{author}",
          author_url = "{author_url}",

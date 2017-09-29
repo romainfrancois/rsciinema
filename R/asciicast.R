@@ -65,8 +65,8 @@ asciibble.source <- function(x, speed, width){
 #' @param envir see [evaluate::evaluate()]
 #' @param speed average number of seconds used to type 1 character
 #' @param version version of the asciicast format
-#' @param width terminal output width
-#' @param height terminal output height
+#' @param cols terminal output width
+#' @param rows terminal output height
 #' @param title title of the ascii cast
 #'
 #' @examples
@@ -83,21 +83,21 @@ asciicast <- function(
   envir = parent.frame(),
   speed = .1,
   version = 1,
-  width = 80,
-  height = 24,
+  cols = 80,
+  rows = 24,
   title = ""
 
 ){
 
   data <- map_df( evaluate(input, envir=envir ), asciibble,
-    speed = speed, width = width
+    speed = speed, width = cols
   )
   structure(
     data,
     class = c("asciicast", class(data)),
     version = version,
-    width   = width,
-    height  = height,
+    width   = cols,
+    height  = rows,
     duration = sum(pull(data, time)),
     command = "R",
     title = title,

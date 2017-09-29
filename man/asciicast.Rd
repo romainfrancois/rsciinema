@@ -5,7 +5,7 @@
 \title{Simulate evaluation of code}
 \usage{
 asciicast(input, envir = parent.frame(), speed = 0.1, version = 1,
-  width = 80, height = 24, title = "")
+  cols = 80, rows = 24, title = "")
 }
 \arguments{
 \item{input}{see [evaluate::evaluate()]}
@@ -16,9 +16,9 @@ asciicast(input, envir = parent.frame(), speed = 0.1, version = 1,
 
 \item{version}{version of the asciicast format}
 
-\item{width}{terminal output width}
+\item{cols}{terminal output width}
 
-\item{height}{terminal output height}
+\item{rows}{terminal output height}
 
 \item{title}{title of the ascii cast}
 }

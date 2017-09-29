@@ -4,17 +4,26 @@
 \alias{asciinema_document}
 \title{Format adapter to embed asciicast into html documents}
 \usage{
-asciinema_document(format = rmarkdown::html_document, width = 80,
-  height = 24, speed = 0.1, ...)
+asciinema_document(format = rmarkdown::html_document, cols = 80,
+  rows = 24, speed = 0.1, autoplay = FALSE, loop = FALSE,
+  theme = "asciinema", font_size = "small", ...)
 }
 \arguments{
 \item{format}{base format, e.g. [rmarkdown::html_document()]}
 
-\item{width}{Number of columns of player's terminal}
+\item{cols}{Number of columns of player's terminal}
 
-\item{height}{Number of lines of player's terminal}
+\item{rows}{Number of lines of player's terminal}
 
 \item{speed}{Typing speed in seconds. The average number of seconds it takes to type one character}
+
+\item{autoplay}{if TRUE the player will start automatically}
+
+\item{loop}{if TRUE the player loops}
+
+\item{theme}{theme. One of asciinema, tango, solarized-dark, solarized-light or tango}
+
+\item{font_size}{font size. One of small, medium, big or any CSS that is valid for a `font-size`}
 
 \item{...}{passed to the base format}
 }

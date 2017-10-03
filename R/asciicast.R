@@ -20,17 +20,18 @@ asciibble.default <- function(x, speed, width){
 asciibble.character <- function(x, speed, width){
   text <- str_split(x, "\n") %>%
     pluck(1) %>%
+    head(-1) %>%
     str_replace_all( "^", "## ") %>%
     paste( collapse = "\r\n")
 
   discreet <-  make_style( "#444444" )
-  tibble( time = rtime(1,speed), text = discreet(paste0( "\r\n", text, "\r\n")) )
+  tibble( time = rtime(1,speed), text = discreet(paste0( text, "\r\n")) )
 }
 
 #' @importFrom crayon red bold magenta
 #' @export
 asciibble.warning <- function(x, speed, width){
-  x <- magenta(bold(paste0("\r\nWarning message:\r\n", conditionMessage(x))))
+  x <- magenta(bold(paste0("Warning message:\r\n", conditionMessage(x))))
   tibble( time = rtime(1,speed), text = x )
 }
 
@@ -44,7 +45,7 @@ asciibble.error <- function(x, speed, width){
   } else {
     glue( "Error in {deparse}", deparse = deparse(call))
   }
-  x <- red(bold(glue("\r\n{prefix}:\r\n{message}")))
+  x <- red(bold(glue("{prefix}:\r\n{message}\r\n")))
   tibble( time = rtime(1,speed), text = x )
 }
 
@@ -53,6 +54,7 @@ asciibble.error <- function(x, speed, width){
 #' @importFrom tibble tibble
 #' @export
 asciibble.source <- function(x, speed, width){
+
   data  <- highlight_data(x)
   chars <- .Call(split_chars,
     min(data$line1), max(data$line2) ,
@@ -62,12 +64,14 @@ asciibble.source <- function(x, speed, width){
   )
   data <- tibble( text = chars[[1]], class=chars[[2]] ) %>%
     filter( text != "" )
-
+  print(DT::datatable(data))
   tokens <- flatten_chr(map2(data$text, data$class, ~{
     if( .y == "SPACE" ){
-      str_replace( .x, "\n", "\r\n")
+      str_replace_all( .x, "\n", "\r\n")
     } else {
-      txt <- str_split(.x, "")[[1]]
+      txt <- str_split(.x, "")[[1]] %>%
+        str_replace_all( "\n", "\r\n")
+
       if( .y == "functioncall" ){
         crayon::red(txt)
       } else {
@@ -75,7 +79,7 @@ asciibble.source <- function(x, speed, width){
       }
     }
   }))
-  tibble( time = rtime(length(tokens),speed), text = tokens )
+  tibble( time = rtime(1+length(tokens),speed), text = c(tokens, "\r\n") )
 }
 
 #' Simulate evaluation of code
@@ -111,6 +115,7 @@ asciicast <- function(
   data <- map_df( evaluate(input, envir=envir ), asciibble,
     speed = speed, width = cols
   )
+
   structure(
     data,
     class = c("asciicast", class(data)),

@@ -1,0 +1,28 @@
+---
+title: "Test asciinema themes"
+author: "Romain"
+date: "02/10/2017"
+output: 
+  rsciinema::asciinema_document:
+    autoplay: true
+    loop: false
+---
+
+```{r setup, include=FALSE}
+library(dplyr)
+```
+
+```{r code, include=FALSE}
+# some comment
+iris %>% 
+  group_by(Species) %>% 
+  summarise_all(mean)
+rnorm(10)
+1:10
+```
+
+
+## asciinema
+
+```{r code, asciicast=list(theme="asciinema")}
+```

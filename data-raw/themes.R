@@ -2,6 +2,8 @@ library(css)
 library(glue)
 library(rvest)
 library(stringr)
+library(dplyr)
+library(purrr)
 
 directory <- "https://github.com/rstudio/rstudio/blob/master/src/gwt/src/org/rstudio/studio/client/workbench/views/source/editors/text/themes"
 raw_directory <- "https://raw.githubusercontent.com/rstudio/rstudio/master/src/gwt/src/org/rstudio/studio/client/workbench/views/source/editors/text/themes"
@@ -16,5 +18,9 @@ rstudio_themes <- map_df( rstudio_theme_names, ~{
     mutate( theme = theme )
 })
 
+rstudio_themes <- mutate( rstudio_themes,
+  dark =
+  )
+
+
 use_data( rstudio_themes, overwrite = TRUE)
-# filter( rstudio_themes, rule == ".ace_comment", property == "color" )

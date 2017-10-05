@@ -1,15 +1,11 @@
 library(css)
 library(glue)
+library(rvest)
+library(stringr)
 
-
-theme_css <- function(theme) {
-  glue(
-    "https://raw.githubusercontent.com/rstudio/rstudio/",
-    "0d9d49aa8671527370c6c261fc031ae8a8081c45/src/gwt/src/",
-    "org/rstudio/studio/client/workbench/views/source/editors/text/themes/{theme}.css"
-  ) %>%
-    read_css()
-}
-
-data <- theme_css("textmate")
+directory <- "https://github.com/rstudio/rstudio/blob/master/src/gwt/src/org/rstudio/studio/client/workbench/views/source/editors/text/themes"
+themes <- read_html(directory) %>%
+  html_nodes("a[title$='css']") %>%
+  html_text() %>%
+  str_replace( "[.]css$", "")
 

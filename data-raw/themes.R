@@ -21,16 +21,30 @@ use_data( rstudio_themes, overwrite = TRUE)
 
 ascii_css <- read_css("inst/htmlwidgets/lib/asciinema-player-2.5.0/asciinema-player.css")
 
+to_hex_color <- function(x){
+  case_when(
+    str_detect(x, "^rgb") ~ {
+      rx <- "^.*([[:digit:]]+).*([[:digit:]]+).*([[:digit:]]+).*$"
+      r  <- as.integer(str_replace(x, rx, "\\1"))
+      g  <- as.integer(str_replace(x, rx, "\\2"))
+      b  <- as.integer(str_replace(x, rx, "\\3"))
+      sprintf( "#%02X%02X%02X", r, g, b )
+    } ,
+    TRUE ~ x
+  )
+}
+
 default_fg_color <- function(rs_theme){
   filter(rs_theme, str_detect(rule, "^.ace_editor"), property == "color" ) %>% pull(value)
 }
 default_bg_color <- function(rs_theme){
   filter(rs_theme, str_detect(rule, "^.ace_editor"), property == "color" ) %>% pull(value)
 }
-
-kw <- function(rs_theme){
-  filter(rs_theme, str_detect(rule, "^.ace_keyword") )
+operator <- function(rs_theme){
+  rs_theme %>%
+    filter( str_detect(rule, ".ace_keyword.ace_operator" ) ) %>%
+    filter( row_number() == n() ) %>%
+    mutate( value = str_replace(value, " !important", "")) %>%
+    mutate( value = to_hex_color(value) )
 }
-map_df( rstudio_themes, kw, .id = "themes") %>% select(-property)
-
 

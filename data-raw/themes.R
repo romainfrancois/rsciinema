@@ -34,17 +34,34 @@ to_hex_color <- function(x){
   )
 }
 
-default_fg_color <- function(rs_theme){
-  filter(rs_theme, str_detect(rule, "^.ace_editor"), property == "color" ) %>% pull(value)
-}
-default_bg_color <- function(rs_theme){
-  filter(rs_theme, str_detect(rule, "^.ace_editor"), property == "color" ) %>% pull(value)
+default_color <- function(rs_theme){
+  rs_theme %>%
+    filter(str_detect(rule, "^.ace_editor") ) %>%
+    mutate( rule = "default" )
 }
 operator <- function(rs_theme){
   rs_theme %>%
     filter( str_detect(rule, ".ace_keyword.ace_operator" ) ) %>%
     filter( row_number() == n() ) %>%
     mutate( value = str_replace(value, " !important", "")) %>%
-    mutate( value = to_hex_color(value) )
+    mutate( value = to_hex_color(value) ) %>%
+    mutate( rule = "operator")
 }
+paren <- function(rs_theme){
+  data <- rs_theme %>%
+    filter( str_detect(rule, ".ace_paren" ) ) %>%
+    mutate( value = str_replace(value, " !important", "")) %>%
+    mutate( value = to_hex_color(value) )
+
+  if( !nrow(data) ){
+    data <- operator(rs_theme)
+  }
+  mutate( data, rule = "paren")
+}
+
+extract_theme <- function(rs_theme){
+  funs <- list(default_color, operator, paren)
+  map_df( funs,  ~ .(rs_theme))
+}
+
 

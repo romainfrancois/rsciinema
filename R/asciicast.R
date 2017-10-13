@@ -64,7 +64,6 @@ asciibble.source <- function(x, speed, width){
   )
   data <- tibble( text = chars[[1]], class=chars[[2]] ) %>%
     filter( text != "" )
-  print(DT::datatable(data))
   tokens <- flatten_chr(map2(data$text, data$class, ~{
     if( .y == "SPACE" ){
       str_replace_all( .x, "\n", "\r\n")

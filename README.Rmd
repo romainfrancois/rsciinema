@@ -1,5 +1,5 @@
 ---
-output: github_document
+output: html_document
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -41,4 +41,18 @@ You can also write out the file
 tfile = tempfile(fileext = ".cast")
 write_asciicast(data, tfile)
 asciinema( tfile )
+```
+
+### Using backspaces
+
+You can encode typos if youwant was well
+
+```{r backspace_example}
+library(dplyr)
+library(rsciinema)
+x = paste0("# a comment is a gra", backspace(), "eat thing to do", 
+           "\niris %>% \n  dplyr::group_by(Species) %>%\n ", 
+           "dplyr::summarise_all(mean) \n # a new line")
+data = asciicast( x )
+asciinema(data = data)
 ```

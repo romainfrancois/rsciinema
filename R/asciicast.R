@@ -16,6 +16,7 @@ asciibble.default <- function(x, speed, width){
 #' @importFrom stringr str_replace_all
 #' @importFrom magrittr %>%
 #' @importFrom crayon make_style
+#' @importFrom utils head
 #' @export
 asciibble.character <- function(x, speed, width){
   text <- str_split(x, "\n") %>%
@@ -134,7 +135,8 @@ asciicast <- function(
 #' @return json formatted asciicast
 #'
 #' @importFrom purrr map2
-#' @importFrom dplyr pull mutate
+#' @importFrom dplyr pull mutate filter
+
 #' @importFrom jsonlite toJSON write_json
 #' @export
 json_asciicast <- function(data){

@@ -12,10 +12,7 @@
 #' @param author Author of the asciicast, displayed in the titlebar in fullscreen mode
 #' @param author_url URL of the author's homepage/profile. Author name (`author` above) is linked to this URL
 #' @param author_img_url URL of the author's image, displayed in the titlebar in fullscreen mode.
-#' @param start_at ...
-#' @param title ...
-#' @param poster_text ...
-#' @param poster_frame
+#' @inheritParams asciinema
 #'
 #' @param ... passed to the base format
 #'

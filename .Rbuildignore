@@ -1,3 +1,6 @@
+^appveyor\.yml$
+^\.travis\.yml$
+^README\.html$
 ^README\.Rmd$
 ^.*\.Rproj$
 ^\.Rproj\.user$

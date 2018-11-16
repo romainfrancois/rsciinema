@@ -29,7 +29,7 @@ library(dplyr)
 #> 
 #>     intersect, setdiff, setequal, union
 library(rsciinema)
-data = asciicast( "# a comment\niris %>% \n  dplyr::group_by(Species) %>%\n  dplyr::summarise_all(mean)" )
+data = asciicast( "# a comment\niris %>% \n  dplyr::group_by(Species) %>%\n  dplyr::summarise_all(mean) \n # a new line" )
 asciinema(data = data)
 ```
 

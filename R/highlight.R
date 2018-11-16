@@ -55,6 +55,8 @@ lestrade <- function( data, ... ){
 }
 
 highlight_data <- function(x){
+  terminal = NULL
+  rm(list = "terminal")
   getParseData( parse(text = x, keep.source = TRUE) ) %>%
     lestrade() %>%
     filter(terminal)

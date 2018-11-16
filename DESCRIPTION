@@ -2,7 +2,9 @@ Package: rsciinema
 Title: R and asciinema
 Version: 0.0.0.9000
 Authors@R: person("Romain", "François", email = "romain@thinkr.fr", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+Description: Provide an R analog to asciinema <https://asciinema.org/> 
+    with the correct highlighting and output, with bindings for 
+    Shiny and RMarkdown.
 Depends: R (>= 3.4.0)
 License: MIT + file LICENSE
 Encoding: UTF-8

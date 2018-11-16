@@ -19,15 +19,6 @@ remotes::install_github("romainfrancois/rsciinema")
 This is a basic example of making an output scene:
 
 ``` r
-library(dplyr)
-#> 
-#> Attaching package: 'dplyr'
-#> The following objects are masked from 'package:stats':
-#> 
-#>     filter, lag
-#> The following objects are masked from 'package:base':
-#> 
-#>     intersect, setdiff, setequal, union
 library(rsciinema)
 data = asciicast( "# a comment\niris %>% \n  dplyr::group_by(Species) %>%\n  dplyr::summarise_all(mean) \n # a new line" )
 asciinema(data = data)
@@ -44,3 +35,32 @@ asciinema( tfile )
 ```
 
 <img src="man/figures/README-unnamed-chunk-1-1.png" width="100%" />
+
+### Using backspaces
+
+You can encode typos if youwant was well
+
+``` r
+library(rsciinema)
+input = paste0("# a comment is a gra", backspace(), "eat thing to do", 
+           "\niris %>% \n  dplyr::group_by(Species) %>%\n ", 
+           "dplyr::summarise_all(mean) \n # a new line")
+data = asciicast( input )
+```
+
+Fixing the backspace
+
+``` r
+asciinema(data = data)
+```
+
+<img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" />
+
+``` r
+fixed_data = data
+fixed_data$text[21] = backspace()
+fixed_data$text[22:24] = ""
+asciinema(data = fixed_data)
+```
+
+<img src="man/figures/README-unnamed-chunk-2-2.png" width="100%" />

@@ -3,12 +3,23 @@ rtime <- function(n, speed){
   runif(n, min = speed*0.5, max = speed*1.5)
 }
 
+#' Create a asciinema tibble
+#'
+#' @param x a set of code or character of code text
+#' @param speed average number of seconds used to type 1 character
+#' @param width Must be a valid CSS unit (like \code{'100\%'},
+#'   \code{'400px'}, \code{'auto'}) or a number, which will be coerced to a
+#'   string and have \code{'px'} appended.
+#'
 #' @export
+#' @return A tibble
+#'
 asciibble <- function(x, speed, width){
   UseMethod("asciibble", x)
 }
 
 #' @export
+#' @rdname asciibble
 asciibble.default <- function(x, speed, width){
   tibble( time = numeric(), text=character())
 }
@@ -18,6 +29,7 @@ asciibble.default <- function(x, speed, width){
 #' @importFrom crayon make_style
 #' @importFrom utils head
 #' @export
+#' @rdname asciibble
 asciibble.character <- function(x, speed, width){
   text <- str_split(x, "\n") %>%
     pluck(1) %>%
@@ -31,6 +43,7 @@ asciibble.character <- function(x, speed, width){
 
 #' @importFrom crayon red bold magenta
 #' @export
+#' @rdname asciibble
 asciibble.warning <- function(x, speed, width){
   x <- magenta(bold(paste0("Warning message:\r\n", conditionMessage(x))))
   tibble( time = rtime(1,speed), text = x )
@@ -38,6 +51,7 @@ asciibble.warning <- function(x, speed, width){
 
 #' @importFrom crayon red bold
 #' @export
+#' @rdname asciibble
 asciibble.error <- function(x, speed, width){
   call <- conditionCall(x)
   message <- conditionMessage(x)
@@ -54,6 +68,7 @@ asciibble.error <- function(x, speed, width){
 #' @importFrom stringr str_split str_replace
 #' @importFrom tibble tibble
 #' @export
+#' @rdname asciibble
 asciibble.source <- function(x, speed, width){
 
   data  <- highlight_data(x)

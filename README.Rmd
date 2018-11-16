@@ -30,7 +30,6 @@ remotes::install_github("romainfrancois/rsciinema")
 This is a basic example of making an output scene:
 
 ```{r example}
-library(dplyr)
 library(rsciinema)
 data = asciicast( "# a comment\niris %>% \n  dplyr::group_by(Species) %>%\n  dplyr::summarise_all(mean) \n # a new line" )
 asciinema(data = data)
@@ -48,11 +47,18 @@ asciinema( tfile )
 You can encode typos if youwant was well
 
 ```{r backspace_example}
-library(dplyr)
 library(rsciinema)
-x = paste0("# a comment is a gra", backspace(), "eat thing to do", 
+input = paste0("# a comment is a gra", backspace(), "eat thing to do", 
            "\niris %>% \n  dplyr::group_by(Species) %>%\n ", 
            "dplyr::summarise_all(mean) \n # a new line")
-data = asciicast( x )
+data = asciicast( input )
+```
+
+Fixing the backspace
+```{r}
 asciinema(data = data)
+fixed_data = data
+fixed_data$text[21] = backspace()
+fixed_data$text[22:24] = ""
+asciinema(data = fixed_data)
 ```

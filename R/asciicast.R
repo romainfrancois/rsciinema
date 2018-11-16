@@ -127,7 +127,7 @@ asciicast <- function(
 
 ){
 
-  data <- map_df( evaluate(input, envir=envir ), asciibble,
+  data <- map_df( evaluate(input, envir = envir ), asciibble,
     speed = speed, width = cols
   )
 

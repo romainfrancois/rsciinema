@@ -8,7 +8,8 @@ asciinema(file, data = read_asciicast(file), cols = 80, rows = 24,
   autoplay = FALSE, loop = FALSE, start_at = 0, speed = 1,
   poster_text = "", poster_frame = "", font_size = "small",
   theme = "asciinema", title = "", author = "", author_url = "",
-  author_img_url = "", width = NULL, height = NULL, elementId = NULL)
+  author_img_url = "", width = NULL, height = NULL,
+  elementId = NULL)
 }
 \arguments{
 \item{file}{ascii cast json file}

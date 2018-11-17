@@ -33,13 +33,13 @@ asciinema_document(format = rmarkdown::html_document, cols = 80,
 
 \item{author_img_url}{URL of the author's image, displayed in the titlebar in fullscreen mode.}
 
-\item{start_at}{...}
+\item{start_at}{a number of seconds or a `Period` created by e.g. [lubridate::seconds()]}
 
-\item{title}{...}
+\item{title}{Title of the asciicast, displayed in the titlebar in fullscreen mode}
 
-\item{poster_text}{...}
+\item{poster_text}{if not `NULL`, used as the text of the poster (preview)}
 
-\item{poster_frame}{}
+\item{poster_frame}{if not `NULL`, used as the}
 
 \item{...}{passed to the base format}
 }

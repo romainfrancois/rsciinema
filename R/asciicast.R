@@ -54,7 +54,7 @@ asciibble.warning <- function(x, speed, width){
 #' @export
 #' @rdname asciibble
 asciibble.recordedplot <- function(x, speed, width){
-  tibble( time = rtime(0,speed), text = "",
+  tibble( time = rtime(1,speed), text = "",
           type = "recordedplot" )
 }
 

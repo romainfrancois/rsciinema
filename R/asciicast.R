@@ -130,7 +130,8 @@ asciicast <- function(
 
   data <- map_df( evaluate(input, envir = envir, ... ), asciibble,
     speed = speed, width = cols
-  )
+  , .id = "input_id")
+  data$input_id = as.numeric(data$input_id)
 
   structure(
     data,

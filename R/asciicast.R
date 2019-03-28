@@ -157,6 +157,8 @@ asciicast <- function(
 #' @importFrom jsonlite toJSON write_json
 #' @export
 json_asciicast <- function(data){
+  data = data %>%
+    select(time, text)
   obj <- list(
     version = attr(data, "version"),
     width = attr(data, "width"),

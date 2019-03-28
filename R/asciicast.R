@@ -21,7 +21,7 @@ asciibble <- function(x, speed, width){
 #' @export
 #' @rdname asciibble
 asciibble.default <- function(x, speed, width){
-  tibble( time = numeric(), text=character())
+  tibble( time = numeric(), text=character(), type = class(x)[1])
 }
 
 #' @importFrom stringr str_replace_all
@@ -38,7 +38,8 @@ asciibble.character <- function(x, speed, width){
     paste( collapse = "\r\n")
 
   discreet <-  make_style( "#444444" )
-  tibble( time = rtime(1,speed), text = discreet(paste0( text, "\r\n")) )
+  tibble( time = rtime(1,speed), text = discreet(paste0( text, "\r\n")),
+          type = "character"  )
 }
 
 #' @importFrom crayon red bold magenta
@@ -46,7 +47,8 @@ asciibble.character <- function(x, speed, width){
 #' @rdname asciibble
 asciibble.warning <- function(x, speed, width){
   x <- magenta(bold(paste0("Warning message:\r\n", conditionMessage(x))))
-  tibble( time = rtime(1,speed), text = x )
+  tibble( time = rtime(1,speed), text = x,
+          type = "warning" )
 }
 
 #' @importFrom crayon red bold
@@ -61,7 +63,7 @@ asciibble.error <- function(x, speed, width){
     glue( "Error in {deparse}", deparse = deparse(call))
   }
   x <- red(bold(glue("{prefix}:\r\n{message}\r\n")))
-  tibble( time = rtime(1,speed), text = x )
+  tibble( time = rtime(1,speed), text = x, type = "error")
 }
 
 #' @importFrom purrr pluck flatten_chr map2
@@ -94,7 +96,8 @@ asciibble.source <- function(x, speed, width){
       }
     }
   }))
-  tibble( time = rtime(1+length(tokens),speed), text = c(tokens, "\r\n") )
+  tibble( time = rtime(1+length(tokens),speed), text = c(tokens, "\r\n"),
+          type = "source" )
 }
 
 #' Simulate evaluation of code

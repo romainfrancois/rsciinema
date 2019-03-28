@@ -152,7 +152,7 @@ asciicast <- function(
 #' @return json formatted asciicast
 #'
 #' @importFrom purrr map2
-#' @importFrom dplyr pull mutate filter
+#' @importFrom dplyr pull mutate filter select
 
 #' @importFrom jsonlite toJSON write_json
 #' @export

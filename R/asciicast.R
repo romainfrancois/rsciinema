@@ -51,6 +51,13 @@ asciibble.warning <- function(x, speed, width){
           type = "warning" )
 }
 
+#' @export
+#' @rdname asciibble
+asciibble.recordedplot <- function(x, speed, width){
+  tibble( time = rtime(0,speed), text = "",
+          type = "recordedplot" )
+}
+
 #' @importFrom crayon red bold
 #' @export
 #' @rdname asciibble
@@ -115,7 +122,12 @@ asciibble.source <- function(x, speed, width){
 #' \dontrun{
 #' asciicast( "# a comment\niris %>% \n  dplyr::group_by(Species) %>%\n  dplyr::summarise_all(mean)" )
 #' }
-#'
+#' input = paste0("library(magrittr); # a comment ",
+#' "\niris %>% \n  dplyr::group_by(Species) %>%\n  ",
+#' "dplyr::summarise_all(mean) \n # a new line")
+#' df = asciicast(input)
+#' as.asciicast(df)
+#' as.asciicast(as.data.frame(df))
 #'
 #' @importFrom purrr map_df
 #' @importFrom evaluate evaluate
@@ -149,6 +161,52 @@ asciicast <- function(
   )
 }
 
+#' @export
+#' @rdname asciicast
+#' @param data a \code{data.frame} or \code{tibble} to convert
+#' to an \code{asciicast}
+as.asciicast = function(
+  data,
+  version = 1,
+  cols = 80,
+  rows = 24,
+  title = "") {
+
+  ab = attributes(data)
+  if (missing(version)) {
+    if (!is.null(ab$version)) {
+      version = ab$version
+    }
+  }
+  if (missing(cols)) {
+    if (!is.null(ab$cols)) {
+      cols = ab$cols
+    }
+  }
+  if (missing(rows)) {
+    if (!is.null(ab$rows)) {
+      rows = ab$rows
+    }
+  }
+  if (missing(title)) {
+    if (!is.null(ab$title)) {
+      title = ab$title
+    }
+  }
+  data = as_tibble(data)
+  structure(
+    data,
+    class = c("asciicast", class(data)),
+    version = version,
+    width   = cols,
+    height  = rows,
+    duration = sum(pull(data, time)),
+    command = "R",
+    title = title,
+    env = list(TERM = "xterm-256color", SHELL = "/bin/bash")
+  )
+
+}
 #' convert an asciicast tibble to its json representation
 #'
 #' @param data an asciicast tibble

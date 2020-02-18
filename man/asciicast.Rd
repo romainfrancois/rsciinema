@@ -5,8 +5,16 @@
 \alias{as.asciicast}
 \title{Simulate evaluation of code}
 \usage{
-asciicast(input, envir = parent.frame(), speed = 0.1, version = 1,
-  cols = 80, rows = 24, title = "", ...)
+asciicast(
+  input,
+  envir = parent.frame(),
+  speed = 0.1,
+  version = 1,
+  cols = 80,
+  rows = 24,
+  title = "",
+  ...
+)
 
 as.asciicast(data, version = 1, cols = 80, rows = 24, title = "")
 }
@@ -35,11 +43,11 @@ Simulate evaluation of code
 }
 \examples{
 \dontrun{
-asciicast( "# a comment\\niris \%>\% \\n  dplyr::group_by(Species) \%>\%\\n  dplyr::summarise_all(mean)" )
+asciicast( "# a comment\niris \%>\% \n  dplyr::group_by(Species) \%>\%\n  dplyr::summarise_all(mean)" )
 }
 input = paste0("library(magrittr); # a comment ",
-"\\niris \%>\% \\n  dplyr::group_by(Species) \%>\%\\n  ",
-"dplyr::summarise_all(mean) \\n # a new line")
+"\niris \%>\% \n  dplyr::group_by(Species) \%>\%\n  ",
+"dplyr::summarise_all(mean) \n # a new line")
 df = asciicast(input)
 as.asciicast(df)
 as.asciicast(as.data.frame(df))

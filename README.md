@@ -20,7 +20,7 @@ This is a basic example of making an output scene:
 
 ``` r
 library(rsciinema)
-data = asciicast( "# a comment\niris %>% \n  dplyr::group_by(Species) %>%\n  dplyr::summarise_all(mean) \n # a new line" )
+data = asciicast( "library(magrittr)\n# a comment\niris %>% \n  dplyr::group_by(Species) %>%\n  dplyr::summarise_all(mean) \n # a new line" )
 asciinema(data = data)
 ```
 

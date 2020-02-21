@@ -4,11 +4,24 @@
 \alias{asciinema_document}
 \title{Format adapter to embed asciicast into html documents}
 \usage{
-asciinema_document(format = rmarkdown::html_document, cols = 80,
-  rows = 24, speed = 0.1, autoplay = FALSE, loop = FALSE,
-  theme = "asciinema", font_size = "small", author = "",
-  author_url = "", author_img_url = "", start_at = 0, title = "",
-  poster_text = "", poster_frame = "", ...)
+asciinema_document(
+  format = rmarkdown::html_document,
+  cols = 80,
+  rows = 24,
+  speed = 0.1,
+  autoplay = FALSE,
+  loop = FALSE,
+  theme = "asciinema",
+  font_size = "small",
+  author = "",
+  author_url = "",
+  author_img_url = "",
+  start_at = 0,
+  title = "",
+  poster_text = "",
+  poster_frame = "",
+  ...
+)
 }
 \arguments{
 \item{format}{base format, e.g. [rmarkdown::html_document()]}

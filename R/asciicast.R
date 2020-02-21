@@ -21,7 +21,7 @@ asciibble <- function(x, speed, width){
 #' @export
 #' @rdname asciibble
 asciibble.default <- function(x, speed, width){
-  tibble( time = numeric(), text=character())
+  tibble( time = numeric(), text=character(), type = class(x)[1])
 }
 
 #' @importFrom stringr str_replace_all
@@ -38,7 +38,8 @@ asciibble.character <- function(x, speed, width){
     paste( collapse = "\r\n")
 
   discreet <-  make_style( "#444444" )
-  tibble( time = rtime(1,speed), text = discreet(paste0( text, "\r\n")) )
+  tibble( time = rtime(1,speed), text = discreet(paste0( text, "\r\n")),
+          type = "character"  )
 }
 
 #' @importFrom crayon red bold magenta
@@ -46,7 +47,15 @@ asciibble.character <- function(x, speed, width){
 #' @rdname asciibble
 asciibble.warning <- function(x, speed, width){
   x <- magenta(bold(paste0("Warning message:\r\n", conditionMessage(x))))
-  tibble( time = rtime(1,speed), text = x )
+  tibble( time = rtime(1,speed), text = x,
+          type = "warning" )
+}
+
+#' @export
+#' @rdname asciibble
+asciibble.recordedplot <- function(x, speed, width){
+  tibble( time = rtime(1, speed ), text = "",
+          type = "recordedplot" )
 }
 
 #' @importFrom crayon red bold
@@ -61,7 +70,7 @@ asciibble.error <- function(x, speed, width){
     glue( "Error in {deparse}", deparse = deparse(call))
   }
   x <- red(bold(glue("{prefix}:\r\n{message}\r\n")))
-  tibble( time = rtime(1,speed), text = x )
+  tibble( time = rtime(1,speed), text = x, type = "error")
 }
 
 #' @importFrom purrr pluck flatten_chr map2
@@ -94,7 +103,8 @@ asciibble.source <- function(x, speed, width){
       }
     }
   }))
-  tibble( time = rtime(1+length(tokens),speed), text = c(tokens, "\r\n") )
+  tibble( time = rtime(1+length(tokens),speed), text = c(tokens, "\r\n"),
+          type = "source" )
 }
 
 #' Simulate evaluation of code
@@ -106,12 +116,18 @@ asciibble.source <- function(x, speed, width){
 #' @param cols terminal output width
 #' @param rows terminal output height
 #' @param title title of the ascii cast
+#' @param ... additional arguments to pass to [evaluate::evaluate()]
 #'
 #' @examples
 #' \dontrun{
 #' asciicast( "# a comment\niris %>% \n  dplyr::group_by(Species) %>%\n  dplyr::summarise_all(mean)" )
 #' }
-#'
+#' input = paste0("library(magrittr); # a comment ",
+#' "\niris %>% \n  dplyr::group_by(Species) %>%\n  ",
+#' "dplyr::summarise_all(mean) \n # a new line")
+#' df = asciicast(input)
+#' as.asciicast(df)
+#' as.asciicast(as.data.frame(df))
 #'
 #' @importFrom purrr map_df
 #' @importFrom evaluate evaluate
@@ -123,13 +139,14 @@ asciicast <- function(
   version = 1,
   cols = 80,
   rows = 24,
-  title = ""
-
+  title = "",
+  ...
 ){
 
-  data <- map_df( evaluate(input, envir = envir ), asciibble,
+  data <- map_df( evaluate(input, envir = envir, ... ), asciibble,
     speed = speed, width = cols
-  )
+  , .id = "input_id")
+  data$input_id = as.numeric(data$input_id)
 
   structure(
     data,
@@ -144,17 +161,65 @@ asciicast <- function(
   )
 }
 
+#' @export
+#' @rdname asciicast
+#' @param data a \code{data.frame} or \code{tibble} to convert
+#' to an \code{asciicast}
+as.asciicast = function(
+  data,
+  version = 1,
+  cols = 80,
+  rows = 24,
+  title = "") {
+
+  ab = attributes(data)
+  if (missing(version)) {
+    if (!is.null(ab$version)) {
+      version = ab$version
+    }
+  }
+  if (missing(cols)) {
+    if (!is.null(ab$cols)) {
+      cols = ab$cols
+    }
+  }
+  if (missing(rows)) {
+    if (!is.null(ab$rows)) {
+      rows = ab$rows
+    }
+  }
+  if (missing(title)) {
+    if (!is.null(ab$title)) {
+      title = ab$title
+    }
+  }
+  data = as_tibble(data)
+  structure(
+    data,
+    class = c("asciicast", class(data)),
+    version = version,
+    width   = cols,
+    height  = rows,
+    duration = sum(pull(data, time)),
+    command = "R",
+    title = title,
+    env = list(TERM = "xterm-256color", SHELL = "/bin/bash")
+  )
+
+}
 #' convert an asciicast tibble to its json representation
 #'
 #' @param data an asciicast tibble
 #' @return json formatted asciicast
 #'
 #' @importFrom purrr map2
-#' @importFrom dplyr pull mutate filter
+#' @importFrom dplyr pull mutate filter select
 
 #' @importFrom jsonlite toJSON write_json
 #' @export
 json_asciicast <- function(data){
+  data = data %>%
+    select(time, text)
   obj <- list(
     version = attr(data, "version"),
     width = attr(data, "width"),

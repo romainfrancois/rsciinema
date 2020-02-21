@@ -2,8 +2,9 @@ Package: rsciinema
 Title: R and asciinema
 Version: 0.0.0.9000
 Authors@R: c(
-    person("Romain", "François", email = "romain@rstudio.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-2444-4226")
-    )
+    person("Romain", "François", email = "romain@rstudio.com", 
+    role = c("aut", "cre"), comment = c(ORCID = "0000-0002-2444-4226")
+    ))
 Description: Provide an R analog to asciinema <https://asciinema.org/> 
     with the correct highlighting and output, with bindings for 
     Shiny and RMarkdown.
@@ -11,7 +12,7 @@ Depends: R (>= 3.4.0)
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.1.0
+RoxygenNote: 7.0.2
 Imports: httpuv,
     jsonlite,
     tibble,

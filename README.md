@@ -5,7 +5,9 @@
 
 The goal of rsciinema is to provide an R analog to asciinema
 <https://asciinema.org/> with the correct highlighting and output, with
-bindings for Shiny and RMarkdown. \#\# Installation
+bindings for Shiny and RMarkdown.
+
+## Installation
 
 You can install the released version of rsciinema from
 [CRAN](https://CRAN.R-project.org) with:
@@ -20,7 +22,7 @@ This is a basic example of making an output scene:
 
 ``` r
 library(rsciinema)
-data = asciicast( "# a comment\niris %>% \n  dplyr::group_by(Species) %>%\n  dplyr::summarise_all(mean) \n # a new line" )
+data = asciicast( "library(magrittr)\n# a comment\niris %>% \n  dplyr::group_by(Species) %>%\n  dplyr::summarise_all(mean) \n # a new line" )
 asciinema(data = data)
 ```
 
@@ -38,11 +40,11 @@ asciinema( tfile )
 
 ### Using backspaces
 
-You can encode typos if youwant was well
+You can encode typos if you want was well:
 
 ``` r
 library(rsciinema)
-input = paste0("# a comment is a gra", backspace(), "eat thing to do", 
+input = paste0("library(magrittr)\n# a comment is a gra", backspace(), "eat thing to do", 
            "\niris %>% \n  dplyr::group_by(Species) %>%\n ", 
            "dplyr::summarise_all(mean) \n # a new line")
 data = asciicast( input )

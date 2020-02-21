@@ -5,6 +5,7 @@
 \alias{asciibble.default}
 \alias{asciibble.character}
 \alias{asciibble.warning}
+\alias{asciibble.recordedplot}
 \alias{asciibble.error}
 \alias{asciibble.source}
 \title{Create a asciinema tibble}
@@ -16,6 +17,8 @@ asciibble(x, speed, width)
 \method{asciibble}{character}(x, speed, width)
 
 \method{asciibble}{warning}(x, speed, width)
+
+\method{asciibble}{recordedplot}(x, speed, width)
 
 \method{asciibble}{error}(x, speed, width)
 

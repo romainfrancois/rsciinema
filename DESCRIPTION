@@ -2,7 +2,7 @@ Package: rsciinema
 Title: R and asciinema
 Version: 0.0.0.9000
 Authors@R: c(
-    person("Romain", "François", email = "romain@rstudio.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-2444-4226")
+    person("Romain", "François", email = "romain@rstudio.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-2444-4226"))
     )
 Description: Provide an R analog to asciinema <https://asciinema.org/> 
     with the correct highlighting and output, with bindings for 
